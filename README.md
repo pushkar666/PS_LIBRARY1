@@ -49,4 +49,5 @@ Ensure the MySQL database is running and the specified database (`library_db`) a
 - MySQL Connector/J
 
 ## License
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
+This project is licensed under the MIT License. See the [LICENSE](https://choosealicense.com/licenses/mit/) file for more details.
+
