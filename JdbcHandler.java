@@ -69,7 +69,7 @@ public class JdbcHandler {
 
 	public void addBook() {
         String query = "INSERT INTO lib1 (ID, NAME, AUTHOR, PRICE) VALUES (?, ?, ?, ?)";
-        
+        int res = 0;
         try (Connection con = DriverManager.getConnection(url, user, password);
              PreparedStatement pstmt = con.prepareStatement(query)) {
 
@@ -79,8 +79,13 @@ public class JdbcHandler {
             pstmt.setString(2, name);
             pstmt.setString(3, author);
             pstmt.setDouble(4, price);
-
-            int res = pstmt.executeUpdate();
+            try {
+            	res = pstmt.executeUpdate();
+            }
+            catch (SQLException e){
+            	System.out.println("BOOK OR ID IS ALREADY REGISTERED");
+            }
+            
             System.out.println("Number of records inserted: " + res);
 
         } catch (ClassNotFoundException | SQLException e) {
@@ -118,7 +123,7 @@ public class JdbcHandler {
 			try (ResultSet rs = pstmt.executeQuery()) {
 				boolean hasData = false;
 				while (rs.next()) {
-					 System.out.printf("ID: %-3d Name: %-25s Author: %-20s Price: %.2f%n",rs.getInt("ID"), rs.getString("NAME"), rs.getString("AUTHOR"), rs.getDouble("PRICE"));
+					 System.out.printf("ID: %-3d Name: %-30s Author: %-20s Price: %.2f%n",rs.getInt("ID"), rs.getString("NAME"), rs.getString("AUTHOR"), rs.getDouble("PRICE"));
 					 hasData = true;
 				}
 				
@@ -144,7 +149,7 @@ public class JdbcHandler {
             try (ResultSet rs = pstmt.executeQuery()) {
             	boolean hasData = false;
 				while (rs.next()) {
-					 System.out.printf("ID: %-3d Name: %-25s Author: %-20s Price: %.2f%n",rs.getInt("ID"), rs.getString("NAME"), rs.getString("AUTHOR"), rs.getDouble("PRICE"));
+					 System.out.printf("ID: %-3d Name: %-30s Author: %-20s Price: %.2f%n",rs.getInt("ID"), rs.getString("NAME"), rs.getString("AUTHOR"), rs.getDouble("PRICE"));
 					 hasData = true;
 				}
 				
